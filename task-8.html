@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic Shopping Cart</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      .container {
+        width: 400px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        color: #666;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #2980b9;
+      }
+
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f9f9f9;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+      }
+
+      .item:hover {
+        transform: translateY(-5px);
+      }
+
+      .cart-item {
+        background-color: #ecf0f1;
+        margin-bottom: 8px;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #333;
+      }
+
+      h3 {
+        text-align: center;
+        color: #27ae60;
+      }
+    </style>
+    <script>
+      var cart = [];
+      var items = [
+        { name: "Apple", price: 1.5 },
+        { name: "Banana", price: 1.0 },
+        { name: "Orange", price: 2.0 },
+      ];
+
+      function addToCart(item) {
+        cart.push(item);
+        updateCart();
+      }
+
+      function updateCart() {
+        var cartList = document.getElementById("cart");
+        var totalPrice = 0;
+        cartList.innerHTML = "";
+        cart.forEach(function (item) {
+          var li = document.createElement("li");
+          li.className = "cart-item";
+          li.textContent = item.name + " - $" + item.price;
+          cartList.appendChild(li);
+          totalPrice += item.price;
+        });
+        document.getElementById("total").textContent =
+          "Total: $" + totalPrice.toFixed(2);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Shopping Cart</h1>
+      <h2>Available Items</h2>
+      <ul>
+        <li class="item">
+          Apple - $1.5
+          <button onclick="addToCart(items[0])">Add to Cart</button>
+        </li>
+        <li class="item">
+          Banana - $1.0
+          <button onclick="addToCart(items[1])">Add to Cart</button>
+        </li>
+        <li class="item">
+          Orange - $2.0
+          <button onclick="addToCart(items[2])">Add to Cart</button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="container">
+      <h2>Your Cart</h2>
+      <ul id="cart"></ul>
+      <h3 id="total">Total: $0.00</h3>
+    </div>
+  </body>
+</html>

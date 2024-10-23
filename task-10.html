@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typing Game</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .game-card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 80%;
+        max-width: 600px;
+        text-align: center;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 1.2em;
+        color: #555;
+        margin-bottom: 10px;
+      }
+
+      #wordToType {
+        color: #ff5722;
+        font-weight: bold;
+      }
+
+      .input-area {
+        margin: 20px 0;
+      }
+
+      #userInput {
+        width: 100%;
+        padding: 10px;
+        font-size: 1.1em;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+      }
+
+      #message {
+        font-size: 1.1em;
+        font-weight: bold;
+      }
+
+      .success {
+        color: green;
+      }
+
+      .error {
+        color: red;
+      }
+
+      button {
+        background-color: #ff5722;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1.1em;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #e64a19;
+      }
+
+      .paragraph {
+        background-color: #f9f9f9;
+        padding: 10px;
+        border-radius: 5px;
+        font-style: italic;
+        color: #555;
+      }
+    </style>
+    <script>
+      var paragraphs = [
+        "The quick brown fox jumps over the lazy dog. This sentence contains every letter of the English alphabet and is commonly used for typing practice.",
+        "JavaScript is a versatile programming language that allows developers to create dynamic and interactive web pages. It is widely used across the globe.",
+        "HTML and CSS are fundamental technologies for building web pages. HTML provides the structure, while CSS handles the layout and design.",
+      ];
+      var currentParagraph;
+      var startTime;
+
+      function startGame() {
+        currentParagraph =
+          paragraphs[Math.floor(Math.random() * paragraphs.length)];
+        document.getElementById("wordToType").textContent = currentParagraph;
+        startTime = new Date();
+        document.getElementById("userInput").value = ""; // Clear input
+        document.getElementById("message").textContent = "";
+      }
+
+      function checkInput() {
+        var userInput = document.getElementById("userInput").value;
+        if (userInput === currentParagraph) {
+          var endTime = new Date();
+          var timeTaken = (endTime - startTime) / 1000;
+          document.getElementById("message").textContent =
+            "Well done! Time taken: " + timeTaken + " seconds.";
+          document.getElementById("message").className = "success";
+        } else {
+          document.getElementById("message").textContent =
+            "Incorrect, keep typing!";
+          document.getElementById("message").className = "error";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="game-card">
+      <h1>Typing Game</h1>
+      <p class="paragraph">
+        Type the following paragraph as fast and as accurately as you can:
+      </p>
+      <p id="wordToType"></p>
+
+      <div class="input-area">
+        <input
+          type="text"
+          id="userInput"
+          onkeyup="checkInput()"
+          placeholder="Start typing here..."
+        />
+      </div>
+
+      <p id="message"></p>
+
+      <button onclick="startGame()">Start New Game</button>
+    </div>
+  </body>
+</html>

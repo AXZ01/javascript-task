@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Ticket Booking</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #619fe2, #976ae0);
+        color: #f8f9fa;
+        padding: 30px;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #fff;
+      }
+      .movie-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-bottom: 30px;
+      }
+      .movie-card {
+        background-color: #343a40;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 15px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        width: 280px;
+        text-align: center;
+        transition: transform 0.4s, box-shadow 0.4s;
+        cursor: pointer;
+      }
+      .movie-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 18px rgba(0, 0, 0, 0.3);
+      }
+      .movie-card h3 {
+        color: #f8f9fa;
+      }
+      .movie-card p {
+        color: #adb5bd;
+      }
+      .movie-card button {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: background-color 0.3s;
+      }
+      .movie-card button:hover {
+        background-color: #218838;
+      }
+      .form-container {
+        background-color: #495057;
+        padding: 30px;
+        border-radius: 12px;
+        margin-top: 30px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        display: none;
+      }
+      label,
+      select,
+      input {
+        display: block;
+        width: 100%;
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 6px;
+        border: none;
+        font-size: 16px;
+        background-color: #343a40;
+        color: #f8f9fa;
+      }
+      input::placeholder {
+        color: #adb5bd;
+      }
+      #nameFields {
+        margin-top: 20px;
+      }
+      #totalCost {
+        margin-top: 20px;
+        font-size: 22px;
+        font-weight: bold;
+        color: #17a2b8;
+      }
+      .seats {
+        font-weight: bold;
+        color: #f94144;
+      }
+      #confirmButton {
+        background-color: #17a2b8;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: background-color 0.3s;
+      }
+      #confirmButton:hover {
+        background-color: #138496;
+      }
+      #errorMessage {
+        color: #ff3333;
+        margin-top: 15px;
+        font-weight: bold;
+      }
+    </style>
+    <script>
+      var ticketPrice = 10;
+      var selectedMovie = "";
+      var availableSeats = {
+        "Avengers: Endgame": 5,
+        Inception: 8,
+        "The Dark Knight": 7,
+        Interstellar: 6,
+        "Spider-Man: No Way Home": 4,
+        "Jurassic Park": 10,
+        Titanic: 12,
+        "The Matrix": 7,
+      };
+
+      function selectMovie(movieName) {
+        selectedMovie = movieName;
+        var seatsLeft = availableSeats[movieName];
+        document.getElementById("selectedMovie").textContent =
+          "Selected Movie: " + movieName;
+        document.getElementById("availableSeats").textContent =
+          "Available Seats: " + seatsLeft;
+
+        // Show the form once a movie is selected
+        document.querySelector(".form-container").style.display = "block";
+        document.getElementById("errorMessage").textContent = ""; // clear error message
+      }
+
+      function showNameFields() {
+        var numberOfTickets = document.getElementById("numberOfTickets").value;
+        var nameFieldsContainer = document.getElementById("nameFields");
+        var seatsLeft = availableSeats[selectedMovie];
+        nameFieldsContainer.innerHTML = ""; // Clear previous fields
+
+        if (numberOfTickets == 0) {
+          document.getElementById("errorMessage").textContent =
+            "Please select the number of tickets!";
+          return;
+        }
+
+        if (seatsLeft < numberOfTickets) {
+          document.getElementById("errorMessage").textContent =
+            "Not enough seats available!";
+          return;
+        }
+
+        document.getElementById("errorMessage").textContent = ""; // Clear error message
+
+        // Create name fields
+        for (var i = 0; i < numberOfTickets; i++) {
+          var input = document.createElement("input");
+          input.type = "text";
+          input.placeholder = "Name of person " + (i + 1);
+          nameFieldsContainer.appendChild(input);
+          nameFieldsContainer.appendChild(document.createElement("br"));
+        }
+
+        // Update total cost
+        var totalCost = numberOfTickets * ticketPrice;
+        document.getElementById("totalCost").textContent =
+          "Total Cost: $" + totalCost;
+      }
+
+      function confirmBooking() {
+        var numberOfTickets = document.getElementById("numberOfTickets").value;
+        if (numberOfTickets == 0 || selectedMovie == "") {
+          alert("Please select a movie and number of tickets.");
+          return;
+        }
+
+        availableSeats[selectedMovie] -= numberOfTickets;
+        alert(
+          "Booking confirmed for " +
+            selectedMovie +
+            " with " +
+            numberOfTickets +
+            " tickets!"
+        );
+        document.getElementById("availableSeats").textContent =
+          "Available Seats: " + availableSeats[selectedMovie];
+        document.getElementById("numberOfTickets").value = "0";
+        document.getElementById("nameFields").innerHTML = "";
+        document.getElementById("totalCost").textContent = "Total Cost: $0";
+        document.querySelector(".form-container").style.display = "none"; // hide form after booking
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Book Movie Tickets</h1>
+
+    <div class="movie-container">
+      <div class="movie-card" onclick="selectMovie('Avengers: Endgame')">
+        <h3>Avengers: Endgame</h3>
+        <p>Action, Adventure, Sci-Fi</p>
+        <p class="seats">Available Seats: 5</p>
+        <button>Select Movie</button>
+      </div>
+
+      <div class="movie-card" onclick="selectMovie('Inception')">
+        <h3>Inception</h3>
+        <p>Action, Sci-Fi, Thriller</p>
+        <p class="seats">Available Seats: 8</p>
+        <button>Select Movie</button>
+      </div>
+
+      <div class="movie-card" onclick="selectMovie('The Dark Knight')">
+        <h3>The Dark Knight</h3>
+        <p>Action, Crime, Drama</p>
+        <p class="seats">Available Seats: 7</p>
+        <button>Select Movie</button>
+      </div>
+
+      <div class="movie-card" onclick="selectMovie('Interstellar')">
+        <h3>Interstellar</h3>
+        <p>Adventure, Drama, Sci-Fi</p>
+        <p class="seats">Available Seats: 6</p>
+        <button>Select Movie</button>
+      </div>
+
+      <div class="movie-card" onclick="selectMovie('Spider-Man: No Way Home')">
+        <h3>Spider-Man: No Way Home</h3>
+        <p>Action, Adventure, Fantasy</p>
+        <p class="seats">Available Seats: 4</p>
+        <button>Select Movie</button>
+      </div>
+
+      <div class="movie-card" onclick="selectMovie('Jurassic Park')">
+        <h3>Jurassic Park</h3>
+        <p>Adventure, Sci-Fi</p>
+        <p class="seats">Available Seats: 10</p>
+        <button>Select Movie</button>
+      </div>
+
+      <div class="movie-card" onclick="selectMovie('Titanic')">
+        <h3>Titanic</h3>
+        <p>Drama, Romance</p>
+        <p class="seats">Available Seats: 12</p>
+        <button>Select Movie</button>
+      </div>
+
+      <div class="movie-card" onclick="selectMovie('The Matrix')">
+        <h3>The Matrix</h3>
+        <p>Action, Sci-Fi</p>
+        <p class="seats">Available Seats: 7</p>
+        <button>Select Movie</button>
+      </div>
+    </div>
+
+    <div class="form-container">
+      <h2 id="selectedMovie"></h2>
+      <p id="availableSeats"></p>
+
+      <label for="numberOfTickets">Number of Tickets:</label>
+      <input
+        type="number"
+        id="numberOfTickets"
+        min="0"
+        max="10"
+        value="0"
+        onchange="showNameFields()"
+      />
+
+      <div id="nameFields"></div>
+
+      <div id="totalCost">Total Cost: $0</div>
+
+      <button id="confirmButton" onclick="confirmBooking()">
+        Confirm Booking
+      </button>
+
+      <p id="errorMessage"></p>
+    </div>
+  </body>
+</html>

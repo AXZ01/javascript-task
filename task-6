@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Country and City Selector</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #e9ecef;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+        margin: 0;
+      }
+      h1 {
+        color: #343a40;
+        margin-bottom: 20px;
+      }
+      select {
+        padding: 10px;
+        margin: 10px;
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        font-size: 16px;
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Select Your Location</h1>
+
+    <label for="country">Choose a country:</label>
+    <select id="country" onchange="updateCities()">
+      <option value="">--Select a country--</option>
+      <option value="usa">United States</option>
+      <option value="canada">Canada</option>
+      <option value="uk">United Kingdom</option>
+    </select>
+
+    <label for="city">Choose a city:</label>
+    <select id="city">
+      <option value="">--Select a city--</option>
+    </select>
+
+    <script>
+      function updateCities() {
+        const country = document.getElementById("country").value;
+        const citySelect = document.getElementById("city");
+
+        // Clear previous options
+        citySelect.innerHTML = '<option value="">--Select a city--</option>';
+
+        let cities;
+
+        // Determine cities based on selected country
+        switch (country) {
+          case "usa":
+            cities = [
+              "New York",
+              "Los Angeles",
+              "Chicago",
+              "Houston",
+              "Phoenix",
+            ];
+            break;
+          case "canada":
+            cities = ["Toronto", "Vancouver", "Montreal", "Calgary", "Ottawa"];
+            break;
+          case "uk":
+            cities = ["London", "Manchester", "Birmingham", "Leeds", "Glasgow"];
+            break;
+          default:
+            cities = [];
+        }
+
+        // Populate the city dropdown with the new options
+        cities.forEach((city) => {
+          const option = document.createElement("option");
+          option.value = city.toLowerCase().replace(" ", "-"); // URL-friendly format
+          option.textContent = city;
+          citySelect.appendChild(option);
+        });
+      }
+    </script>
+  </body>
+</html>
