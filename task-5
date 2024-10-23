@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Image Gallery</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #e8f0fe; /* Soft blue background */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+        text-align: center;
+      }
+      h1 {
+        color: #3f51b5; /* Dark blue color */
+        margin-bottom: 20px;
+      }
+      .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      .thumbnail {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      .thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Cover the thumbnail area */
+        transition: transform 0.3s;
+      }
+      .thumbnail:hover {
+        transform: scale(1.05); /* Slightly enlarge thumbnail */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      }
+      .large-image {
+        margin-top: 20px;
+        width: 300px;
+        height: 200px; /* Set a fixed height */
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s;
+      }
+      .large-image:hover {
+        transform: scale(1.03); /* Slightly enlarge large image on hover */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Interactive Image Gallery</h1>
+
+    <div class="gallery">
+      <div
+        class="thumbnail"
+        onmouseover="changeImage('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Frain-nature&psig=AOvVaw1Pt6_T6b3e006EGIHVuTRW&ust=1729771129463000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPiKi-u5pIkDFQAAAAAdAAAAABAE')"
+        onmouseout="resetImage()"
+      >
+        <img
+          src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Frain-nature&psig=AOvVaw1Pt6_T6b3e006EGIHVuTRW&ust=1729771129463000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPiKi-u5pIkDFQAAAAAdAAAAABAE"
+          alt="Image 1"
+        />
+      </div>
+      <div
+        class="thumbnail"
+        onmouseover="changeImage(' https://www.google.com/url?sa=i&url=https%3A%2F%2Fmichiganross.umich.edu%2Fnews%2Fbeautiful-photos-nature-increase-engagement-and-concern-environment-research-shows&psig=AOvVaw1O4NOnH9LPzR72k_8Lukbf&ust=1729770784517000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMi4l724pIkDFQAAAAAdAAAAABAX')"
+        onmouseout="resetImage()"
+      >
+        <img
+          src=" https://www.google.com/url?sa=i&url=https%3A%2F%2Fmichiganross.umich.edu%2Fnews%2Fbeautiful-photos-nature-increase-engagement-and-concern-environment-research-shows&psig=AOvVaw1O4NOnH9LPzR72k_8Lukbf&ust=1729770784517000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMi4l724pIkDFQAAAAAdAAAAABAX"
+          alt="Image 2"
+        />
+      </div>
+      <div
+        class="thumbnail"
+        onmouseover="changeImage('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.wallartprints.com.au%2Fblog%2Fnature-pictures%2F&psig=AOvVaw3DzJQdDQlz38RUok_ff2bq&ust=1729770675380000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJi0hI64pIkDFQAAAAAdAAAAABAZ')"
+        onmouseout="resetImage()"
+      >
+        <img
+          src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.wallartprints.com.au%2Fblog%2Fnature-pictures%2F&psig=AOvVaw3DzJQdDQlz38RUok_ff2bq&ust=1729770675380000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJi0hI64pIkDFQAAAAAdAAAAABAZ"
+          alt="Image 3"
+        />
+      </div>
+      <div
+        class="thumbnail"
+        onmouseover="changeImage('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.wallartprints.com.au%2Fblog%2Fnature-pictures%2F&psig=AOvVaw3DzJQdDQlz38RUok_ff2bq&ust=1729770675380000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJi0hI64pIkDFQAAAAAdAAAAABAZ')"
+        onmouseout="resetImage()"
+      >
+        <img
+          src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.wallartprints.com.au%2Fblog%2Fnature-pictures%2F&psig=AOvVaw3DzJQdDQlz38RUok_ff2bq&ust=1729770675380000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJi0hI64pIkDFQAAAAAdAAAAABAZ
+            "
+          alt="Image 4"
+        />
+      </div>
+    </div>
+
+    <img
+      id="largeImage"
+      class="large-image"
+      src="IMAGE_URL_1"
+      alt="Large Image"
+    />
+
+    <script>
+      function changeImage(imageSrc) {
+        document.getElementById("largeImage").src = imageSrc;
+      }
+
+      function resetImage() {
+        document.getElementById("largeImage").src = "IMAGE_URL_1"; // Reset to the first image
+      }
+    </script>
+  </body>
+</html>
